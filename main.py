@@ -1,4 +1,4 @@
-from question_model import Question
+from question_model import Question, logo
 from data import question_data
 from quiz_brain import QuizBrain
 
@@ -13,4 +13,4 @@ while quiz.still_have_questions():
     quiz.next_question()
     print()
     print()
-print(f'\n\nYou have completed the quiz!\nYour final score was {quiz.score}/{quiz.question_number}')  #
+print(f'\n\nYou have completed the quiz!\nYour final score was {quiz.score}/{quiz.len}')  #

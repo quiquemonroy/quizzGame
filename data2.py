@@ -1,10 +1,10 @@
 
 class NewQuestions:
-    def __init__(self,data):
-        self.data = data
+    def __init__(self):
         self.output = []
-    def generate_new_questions(self):
-        for i in self.data["results"]:
+
+    def generate_new_questions(self,data):
+        for i in data["results"]:
             d = {"text" :i["question"],"answer": i["correct_answer"]}
             self.output.append(d)
 
