@@ -1,5 +1,10 @@
-import random, time, os
+import os
+import random
+import time
+
 from question_model import logo
+
+
 class QuizBrain:
     def __init__(self, q_list):
         self.question_number = 0
@@ -12,29 +17,41 @@ class QuizBrain:
         return self.asked < self.len
 
     def next_question(self):
-        num = self.question_number
         current = random.choice(self.question_list)
-        self.asked += 1
+        random.shuffle(current.responses)
+
         print(logo)
-        ans = input(f'Q{self.asked}: {current.q}. (T)rue or (F)alse?').lower().strip()
-        correct = current.a.lower().strip()
-        self.check_answer(ans, correct)
+        print(f'Your score is: {self.score} out of {self.asked}')
+        self.asked += 1
+        question = f'Q{self.asked}: {current.q}'
+        print(f'{question}\n')
+        for i in range(0,len(current.responses)):
+            print(f'   {i+1}: {current.responses[i]}')
+        while True:
+            try:
+                ans = int(input("1,2, 3 or 4?   > ").lower().strip())
+                break
+            except:
+                print("Please, type a number between 1 and 4. Type 9 for exit.")
+                continue
+        correct = current.a
+        self.check_answer(ans, correct, current)
         self.question_list.remove(current)
 
+    def check_answer(self, ans, correct,current):
+        if ans == 0:
+            print("\nThanks for playing.")
+            print(f'the correct answer was: {correct.capitalize()}, btw')
+            print(f'Your score is {self.score}/{self.asked-1}')
+            self.asked += 600
 
-    def check_answer(self, ans, correct):
-        if ans[0] == correct[0]:
+        elif current.responses[ans-1] == correct:
             self.score += 1
             print("\nYou got it right!")
             print(f'the correct answer was: {correct.capitalize()}')
             print(f'Your current score is {self.score}/{self.asked}')
             time.sleep(2)
             os.system("clear")
-        elif ans == "q":
-            print("\nThanks for playing.")
-            print(f'the correct answer was: {correct.capitalize()}, btw')
-            print(f'Your score is {self.score}/{self.asked}')
-            self.asked += 600
         else:
             print("\nThat's wrong!")
             print(f'the correct answer was: {correct.capitalize()}')

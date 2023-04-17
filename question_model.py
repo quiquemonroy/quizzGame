@@ -1,7 +1,10 @@
 class Question:
-    def __init__(self,q,a):
-        self.q = q.replace("&quot","")
-        self.a = a
+    def __init__(self,question,answer,incorrect):
+        self.q = question.replace("&quot","")
+        self.a = answer
+        self.incorrect = incorrect
+        self.responses = [self.a,self.incorrect[0], self.incorrect[1], self.incorrect[2]]
+
 
 logo = """
 ===========================================
@@ -12,8 +15,4 @@ logo = """
    ██║   ██║  ██║██║ ╚████╔╝ ██║██║  ██║██╗
    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝  ╚═╝╚═╝                   
 ===========================================
-- type "T" for True.
-- type "F" for False.
-- tipe "Q" for quit.
-Good Luck!
 """
